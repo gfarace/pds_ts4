@@ -40,7 +40,7 @@ def cuantizacion(B, Vref, xx):
 
 def fft(xx, N):
     ft = np.fft.fft(xx, axis=0)
-    ft = ft/N
+    ft = ft/N 
     return ft
 
 def analisis_adc(xx, tt, fs, N, B, Vref, kn):
@@ -134,3 +134,29 @@ analisis_adc(analog_sig, tt, fs, N, B, Vref, kn)
 B=4
 kn=10
 analisis_adc(analog_sig, tt, fs, N, B, Vref, kn)
+
+#%% Aliasing
+#Nyquist: fs >= 2.ff
+
+# datos de la senoidal
+vmax = 1
+dc = 0
+ph = 0
+N = 1000  # cantidad de muestras
+
+ff = 1
+alias = 0.5 
+fs = 2*ff*alias
+
+# Datos del ADC
+Vref = 2 # Volts
+B = 4
+
+# datos del ruido
+kn = 1
+
+# Senoidal
+tt,analog_sig = senoidal(vmax, dc, ff, ph, N, fs)
+
+analisis_adc(analog_sig, tt, fs, N, B, Vref, kn)
+
